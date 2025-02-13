@@ -1,0 +1,796 @@
+{
+	"info": {
+		"_postman_id": "a4d056c6-b638-4012-8adf-50d6aa22b323",
+		"name": "API Webinar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2037649"
+	},
+	"item": [
+		{
+			"name": "buy pen",
+			"item": [
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response body\r",
+									"let responseBody = pm.response.json();\r",
+									"\r",
+									"// Extract the token value\r",
+									"let token = responseBody.token;\r",
+									"\r",
+									"// Save the token as a collection variable\r",
+									"pm.collectionVariables.set('token', token);\r",
+									"\r",
+									"// Log the token value to the console (optional)\r",
+									"console.log('Token value saved:', token);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"{{$randomUserName}}\",\r\n  \"password\": \"testing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverURL}}/api/v1/users/register",
+							"host": [
+								"{{serverURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://shopen.qamania.org/api/v1/users/register' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"username\": \"string\",\r\n  \"password\": \"string\"\r\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "get user info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response body\r",
+									"let responseBody = pm.response.json();\r",
+									"\r",
+									"// Extract the token value\r",
+									"let id = responseBody.id;\r",
+									"\r",
+									"// Save the token as a collection variable\r",
+									"pm.collectionVariables.set('userId', id);\r",
+									"\r",
+									"// Log the token value to the console (optional)\r",
+									"console.log('Token value saved:', id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://shopen.qamania.org/api/v1/users/me",
+							"protocol": "http",
+							"host": [
+								"shopen",
+								"qamania",
+								"org"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://shopen.qamania.org/api/v1/users/me' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Authorization: 9da114c8-0f68-46a1-826a-4125d08f0a47'"
+					},
+					"response": []
+				},
+				{
+					"name": "login admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response body\r",
+									"let responseBody = pm.response.json();\r",
+									"\r",
+									"// Extract the token value\r",
+									"let token = responseBody.token;\r",
+									"\r",
+									"// Save the token as a collection variable\r",
+									"pm.collectionVariables.set('adminToken', token);\r",
+									"\r",
+									"// Log the token value to the console (optional)\r",
+									"console.log('Token value saved:', token);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://shopen.qamania.org/api/v1/users/login",
+							"protocol": "http",
+							"host": [
+								"shopen",
+								"qamania",
+								"org"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://shopen.qamania.org/api/v1/users/login' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"username\": \"admin\",\r\n  \"password\": \"admin\"\r\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "set user credit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://shopen.qamania.org/api/v1/users/user/{{userId}}/credit?credit=1000",
+							"protocol": "http",
+							"host": [
+								"shopen",
+								"qamania",
+								"org"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"user",
+								"{{userId}}",
+								"credit"
+							],
+							"query": [
+								{
+									"key": "credit",
+									"value": "1000"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -X 'PATCH' \\\r\n  'http://shopen.qamania.org/api/v1/users/user/2/credit?credit=100' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Authorization: 9da114c8-0f68-46a1-826a-4125d08f0a47'"
+					},
+					"response": []
+				},
+				{
+					"name": "create pens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response body\r",
+									"let responseBody = pm.response.json();\r",
+									"\r",
+									"// Extract the token value\r",
+									"let penId = responseBody.id;\r",
+									"\r",
+									"// Save the token as a collection variable\r",
+									"pm.collectionVariables.set('penId', penId);\r",
+									"\r",
+									"// Log the token value to the console (optional)\r",
+									"console.log('Token value saved:', penId);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"brand\": \"parker\",\r\n  \"price\": 10,\r\n  \"stock\": 100,\r\n  \"color\": \"red\",\r\n  \"length\": 15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://shopen.qamania.org/api/v1/pens/add",
+							"protocol": "http",
+							"host": [
+								"shopen",
+								"qamania",
+								"org"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pens",
+								"add"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://shopen.qamania.org/api/v1/pens/add' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Authorization: 9da114c8-0f68-46a1-826a-4125d08f0a47' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"brand\": \"parker\",\r\n  \"price\": 10,\r\n  \"stock\": 100,\r\n  \"color\": \"red\",\r\n  \"length\": 15\r\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "request pens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response body\r",
+									"let responseBody = pm.response.json();\r",
+									"\r",
+									"// Extract the token value\r",
+									"let transactionId = responseBody.id;\r",
+									"\r",
+									"// Save the token as a collection variable\r",
+									"pm.collectionVariables.set('transactionId', transactionId);\r",
+									"\r",
+									"// Log the token value to the console (optional)\r",
+									"console.log('Token value saved:', transactionId);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"order\": [\r\n    {\r\n      \"id\": {{penId}},\r\n      \"count\": 10\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://shopen.qamania.org/api/v1/transactions/request",
+							"protocol": "http",
+							"host": [
+								"shopen",
+								"qamania",
+								"org"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"request"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://shopen.qamania.org/api/v1/transactions/request' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Authorization: 9da114c8-0f68-46a1-826a-4125d08f0a47' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"order\": [\r\n    {\r\n      \"id\": 0,\r\n      \"count\": 1\r\n    }\r\n  ]\r\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "complete transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://shopen.qamania.org/api/v1/transactions/{{transactionId}}/complete",
+							"protocol": "http",
+							"host": [
+								"shopen",
+								"qamania",
+								"org"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"{{transactionId}}",
+								"complete"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://shopen.qamania.org/api/v1/transactions/1/complete' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Authorization: 9da114c8-0f68-46a1-826a-4125d08f0a47' \\\r\n  -d ''"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the JSON response body\r",
+							"let responseBody = pm.response.json();\r",
+							"\r",
+							"// Extract the token value\r",
+							"let token = responseBody.token;\r",
+							"\r",
+							"// Save the token as a collection variable\r",
+							"pm.collectionVariables.set('token', token);\r",
+							"\r",
+							"// Log the token value to the console (optional)\r",
+							"console.log('Token value saved:', token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"hello\",\r\n  \"password\": \"world\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://shopen.qamania.org/api/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"shopen",
+						"qamania",
+						"org"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://shopen.qamania.org/api/v1/users/login' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"username\": \"hello\",\r\n  \"password\": \"world\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "get me",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://shopen.qamania.org/api/v1/users/me",
+					"protocol": "http",
+					"host": [
+						"shopen",
+						"qamania",
+						"org"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"me"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://shopen.qamania.org/api/v1/users/me' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Authorization: 72396fa8-7550-430d-a30c-b90f90ad8472'"
+			},
+			"response": []
+		},
+		{
+			"name": "pens min price 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"pens\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": {\r",
+							"                \"type\": \"object\",\r",
+							"                \"properties\": {\r",
+							"                    \"id\": {\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"brand\": {\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"price\": {\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"stock\": {\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"color\": {\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"length\": {\r",
+							"                        \"type\": \"integer\"\r",
+							"                    }\r",
+							"                },\r",
+							"                \"required\": [\"id\", \"brand\", \"price\", \"stock\", \"color\", \"length\"]\r",
+							"            }\r",
+							"        }\r",
+							"    },\r",
+							"    \"required\": [\"pens\"]\r",
+							"};\r",
+							"\r",
+							"// Validate the response against the schema\r",
+							"pm.test('Schema is valid', function() {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://shopen.qamania.org/api/v1/pens?minPrice=10",
+					"protocol": "http",
+					"host": [
+						"shopen",
+						"qamania",
+						"org"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pens"
+					],
+					"query": [
+						{
+							"key": "minPrice",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://shopen.qamania.org/api/v1/pens?minPrice=10' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "pens max price 200",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://shopen.qamania.org/api/v1/pens?maxPrice=10",
+					"protocol": "http",
+					"host": [
+						"shopen",
+						"qamania",
+						"org"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pens"
+					],
+					"query": [
+						{
+							"key": "maxPrice",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://shopen.qamania.org/api/v1/pens?minPrice=10' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "pens min len 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://shopen.qamania.org/api/v1/pens?minLength=10",
+					"protocol": "http",
+					"host": [
+						"shopen",
+						"qamania",
+						"org"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pens"
+					],
+					"query": [
+						{
+							"key": "minLength",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://shopen.qamania.org/api/v1/pens?minPrice=10' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "adminToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "penId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "transactionId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
