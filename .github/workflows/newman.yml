@@ -1,0 +1,25 @@
+name: Run Postman Collection
+
+on:
+  push:
+  workflow_dispatch:
+
+
+jobs:
+  run-postman-collection:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22'  # Specify the Node.js version you want to use
+
+    - name: Install Newman
+      run: npm install -g newman
+
+    - name: Run Postman Collection
+      run: newman run postman/shopen_test.json -e postman/shopen_dev_env.json

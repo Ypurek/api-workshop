@@ -1,0 +1,1 @@
+BASE_URL = 'http://shopen.qamania.org/api/v1'

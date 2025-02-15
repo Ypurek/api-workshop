@@ -1,8 +1,7 @@
 import pytest
 import requests
 import uuid
-
-BASE_URL = 'http://shopen.qamania.org/api/v1'
+from settings import BASE_URL
 
 
 @pytest.fixture(scope='session')
@@ -32,10 +31,10 @@ def admin():
 
 @pytest.fixture
 def buy(session, admin) -> tuple[requests.Session, int]:
-    response = session.get('http://shopen.qamania.org/api/v1/users/me')
+    response = session.get(f'{BASE_URL}/users/me')
     userId = response.json()['id']
-    admin.patch(f'http://shopen.qamania.org/api/v1/users/user/{userId}/credit?credit=1000')
-    response = admin.post(f'http://shopen.qamania.org/api/v1/pens/add', json={
+    admin.patch(f'{BASE_URL}/users/user/{userId}/credit?credit=1000')
+    response = admin.post(f'{BASE_URL}/pens/add', json={
         "brand": "parker",
         "price": 10,
         "stock": 100,

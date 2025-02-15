@@ -1,18 +1,2 @@
 ### GET request to example server
 GET http://shopen.qamania.org/api/v1/pens?minLength=10
-
-###
-### GET request to example server
-GET http://shopen.qamania.org/api/v1/pens?minLength=10
-
-###
-
-### GET request to example server
-GET http://shopen.qamania.org/api/v1/pens?minLength=10
-
-###
-
-### GET request to example server
-GET http://shopen.qamania.org/api/v1/pens?minLength=10
-
-###
