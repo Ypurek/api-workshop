@@ -1,4 +1,4 @@
-name: Run Postman Collection
+name: Run Newman Tests
 
 on:
   push:
